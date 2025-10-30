@@ -1,7 +1,16 @@
+import os
 from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class QwenHandler:
-    def __init__(self, api_key="YOUR_API_KEY", base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"):
+    def __init__(self, api_key=None, base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"):
+        if api_key is None:
+            api_key = os.getenv("QWEN_API_KEY")
+        if not api_key:
+            raise ValueError("Qwen API key not found. Set the QWEN_API_KEY environment variable.")
+
         self.client = OpenAI(api_key=api_key, base_url=base_url)
 
     def analyze_market(self, market_data, news_data):
@@ -12,8 +21,6 @@ class QwenHandler:
                 {"role": "user", "content": f"Analyze the following market data and news: {market_data}, {news_data}"},
             ],
             stream=False,
-            # functions=[...], # Placeholder for function calling
-            # function_call="auto",
         )
         return response.choices[0].message.content
 
