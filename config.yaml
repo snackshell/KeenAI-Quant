@@ -1,0 +1,80 @@
+# KeenAI-Quant Trading System Configuration
+
+# Trading Configuration
+trading:
+  pairs:
+    - EUR/USD
+    - XAU/USD
+    - BTC/USD
+    - ETH/USD
+  update_frequency: 1  # seconds
+  trading_hours:
+    start: "00:00"
+    end: "23:59"
+  enabled: true
+
+# AI Configuration - Unified OpenRouter Agent
+ai:
+  model: "deepseek/deepseek-r1:free"  # PRIMARY: Free model for testing
+  timeout: 5  # seconds
+  # Switch to paid model for production:
+  # - "deepseek/deepseek-v3.2-exp" ($0.27/1M tokens - ultra-cheap and fast)
+
+# Risk Configuration
+risk:
+  max_position_size: 0.25  # 25% of account per trade
+  max_daily_loss: 0.05     # 5% daily loss limit
+  max_drawdown: 0.15       # 15% max drawdown
+  min_risk_reward: 1.5     # Minimum 1:1.5 RR
+  risk_per_trade: 0.02     # 2% risk per trade
+
+# Broker Configuration
+broker:
+  type: "mt5"
+  use_openalgo: true
+  openalgo_host: "${OPENALGO_HOST}"
+  openalgo_api_key: "${OPENALGO_API_KEY}"
+
+# Data Engine Configuration
+data:
+  buffer_size: 1000  # candles per timeframe
+  timeframes:
+    - "1m"
+    - "5m"
+    - "15m"
+    - "1h"
+    - "4h"
+    - "1d"
+  historical_retention_days: 730  # 2 years
+
+# Database Configuration
+database:
+  path: "./data/keenai.db"
+  backup_enabled: true
+  backup_frequency: "daily"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file: "./logs/keenai.log"
+  rotation: "daily"
+  retention_days: 90
+
+# Strategy Configuration
+strategies:
+  trend_following:
+    enabled: true
+    pairs: ["EUR/USD", "XAU/USD", "BTC/USD", "ETH/USD"]
+  mean_reversion:
+    enabled: true
+    pairs: ["EUR/USD", "XAU/USD"]
+  breakout:
+    enabled: true
+    pairs: ["BTC/USD", "ETH/USD"]
+
+# Performance Optimization
+performance:
+  max_memory_gb: 4
+  max_storage_gb: 40
+  enable_compression: true
+  cache_indicators: true

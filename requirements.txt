@@ -1,0 +1,36 @@
+# KeenAI-Quant Backend Requirements
+# Latest versions (no pinning for automatic updates)
+
+# Core Framework
+fastapi
+uvicorn[standard]
+python-dotenv
+pyyaml
+pydantic
+pydantic-settings
+
+# HTTP Client
+httpx
+
+# AI/ML
+openai
+
+# Data Processing
+pandas
+numpy
+
+# Database
+sqlalchemy
+
+# WebSocket
+websockets
+
+# Logging
+loguru
+
+# Testing (optional)
+pytest
+pytest-asyncio
+
+# Note: All indicators are implemented in pure Python/NumPy
+# TA-Lib is NOT needed and NOT recommended (requires C++ compiler)
